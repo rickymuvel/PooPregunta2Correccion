@@ -1,0 +1,174 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Negocios2015Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="NomCliente" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="DirCliente" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="idpais" Type="char" MaxLength="3" />
+          <Property Name="fonoCliente" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Activo" Type="bit" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="Idpais" />
+          </Key>
+          <Property Name="Idpais" Type="char" MaxLength="3" Nullable="false" />
+          <Property Name="NombrePais" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__clientes__idpais__145C0A3F">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="Idpais" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="idpais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_ClienteListado_EDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="usp_PaisListar_EDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="Negocios2015ModelStoreContainer">
+          <EntitySet Name="clientes" EntityType="Self.clientes" Schema="Ventas" store:Type="Tables" />
+          <EntitySet Name="paises" EntityType="Self.paises" Schema="Ventas" store:Type="Tables" />
+          <AssociationSet Name="FK__clientes__idpais__145C0A3F" Association="Self.FK__clientes__idpais__145C0A3F">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Negocios2015Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="clientes">
+          <Key>
+            <PropertyRef Name="IdCliente" />
+          </Key>
+          <Property Name="IdCliente" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NomCliente" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DirCliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idpais" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+          <Property Name="fonoCliente" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Activo" Type="Boolean" />
+          <NavigationProperty Name="paises" Relationship="Self.FK__clientes__idpais__145C0A3F" FromRole="clientes" ToRole="paises" />
+        </EntityType>
+        <EntityType Name="paises">
+          <Key>
+            <PropertyRef Name="Idpais" />
+          </Key>
+          <Property Name="Idpais" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="NombrePais" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="clientes" Relationship="Self.FK__clientes__idpais__145C0A3F" FromRole="paises" ToRole="clientes" />
+        </EntityType>
+        <Association Name="FK__clientes__idpais__145C0A3F">
+          <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+          <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="paises">
+              <PropertyRef Name="Idpais" />
+            </Principal>
+            <Dependent Role="clientes">
+              <PropertyRef Name="idpais" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Negocios2015Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="clientes" EntityType="Self.clientes" />
+          <EntitySet Name="paises" EntityType="Self.paises" />
+          <AssociationSet Name="FK__clientes__idpais__145C0A3F" Association="Self.FK__clientes__idpais__145C0A3F">
+            <End Role="paises" EntitySet="paises" />
+            <End Role="clientes" EntitySet="clientes" />
+          </AssociationSet>
+          <FunctionImport Name="usp_ClienteListado_EDM" ReturnType="Collection(Negocios2015Model.usp_ClienteListado_EDM_Result)" />
+          <FunctionImport Name="usp_PaisListar_EDM" ReturnType="Collection(Negocios2015Model.usp_PaisListar_EDM_Result)" />
+        </EntityContainer>
+        <ComplexType Name="usp_ClienteListado_EDM_Result">
+          <Property Type="String" Name="IdCliente" Nullable="false" MaxLength="5" />
+          <Property Type="String" Name="NomCliente" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="DirCliente" Nullable="false" MaxLength="60" />
+          <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="40" />
+          <Property Type="String" Name="fonoCliente" Nullable="false" MaxLength="25" />
+        </ComplexType>
+        <ComplexType Name="usp_PaisListar_EDM_Result">
+          <Property Type="String" Name="Idpais" Nullable="false" MaxLength="3" />
+          <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="40" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Negocios2015ModelStoreContainer" CdmEntityContainer="Negocios2015Entities">
+          <EntitySetMapping Name="clientes">
+            <EntityTypeMapping TypeName="Negocios2015Model.clientes">
+              <MappingFragment StoreEntitySet="clientes">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NomCliente" ColumnName="NomCliente" />
+                <ScalarProperty Name="DirCliente" ColumnName="DirCliente" />
+                <ScalarProperty Name="idpais" ColumnName="idpais" />
+                <ScalarProperty Name="fonoCliente" ColumnName="fonoCliente" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="paises">
+            <EntityTypeMapping TypeName="Negocios2015Model.paises">
+              <MappingFragment StoreEntitySet="paises">
+                <ScalarProperty Name="Idpais" ColumnName="Idpais" />
+                <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_ClienteListado_EDM" FunctionName="Negocios2015Model.Store.usp_ClienteListado_EDM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Negocios2015Model.usp_ClienteListado_EDM_Result">
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="NomCliente" ColumnName="NomCliente" />
+                <ScalarProperty Name="DirCliente" ColumnName="DirCliente" />
+                <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+                <ScalarProperty Name="fonoCliente" ColumnName="fonoCliente" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_PaisListar_EDM" FunctionName="Negocios2015Model.Store.usp_PaisListar_EDM">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Negocios2015Model.usp_PaisListar_EDM_Result">
+                <ScalarProperty Name="Idpais" ColumnName="Idpais" />
+                <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

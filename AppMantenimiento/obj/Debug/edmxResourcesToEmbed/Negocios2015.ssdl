@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Negocios2015Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="varchar" MaxLength="5" Nullable="false" />
+    <Property Name="NomCliente" Type="varchar" MaxLength="40" Nullable="false" />
+    <Property Name="DirCliente" Type="varchar" MaxLength="60" Nullable="false" />
+    <Property Name="idpais" Type="char" MaxLength="3" />
+    <Property Name="fonoCliente" Type="varchar" MaxLength="25" Nullable="false" />
+    <Property Name="Activo" Type="bit" />
+  </EntityType>
+  <EntityType Name="paises">
+    <Key>
+      <PropertyRef Name="Idpais" />
+    </Key>
+    <Property Name="Idpais" Type="char" MaxLength="3" Nullable="false" />
+    <Property Name="NombrePais" Type="varchar" MaxLength="40" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__clientes__idpais__145C0A3F">
+    <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+    <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paises">
+        <PropertyRef Name="Idpais" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="idpais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="usp_ClienteListado_EDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="usp_PaisListar_EDM" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="Negocios2015ModelStoreContainer">
+    <EntitySet Name="clientes" EntityType="Self.clientes" Schema="Ventas" store:Type="Tables" />
+    <EntitySet Name="paises" EntityType="Self.paises" Schema="Ventas" store:Type="Tables" />
+    <AssociationSet Name="FK__clientes__idpais__145C0A3F" Association="Self.FK__clientes__idpais__145C0A3F">
+      <End Role="paises" EntitySet="paises" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

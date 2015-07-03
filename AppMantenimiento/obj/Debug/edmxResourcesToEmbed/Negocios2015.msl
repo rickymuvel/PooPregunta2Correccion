@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Negocios2015ModelStoreContainer" CdmEntityContainer="Negocios2015Entities">
+    <EntitySetMapping Name="clientes">
+      <EntityTypeMapping TypeName="Negocios2015Model.clientes">
+        <MappingFragment StoreEntitySet="clientes">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="NomCliente" ColumnName="NomCliente" />
+          <ScalarProperty Name="DirCliente" ColumnName="DirCliente" />
+          <ScalarProperty Name="idpais" ColumnName="idpais" />
+          <ScalarProperty Name="fonoCliente" ColumnName="fonoCliente" />
+          <ScalarProperty Name="Activo" ColumnName="Activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="paises">
+      <EntityTypeMapping TypeName="Negocios2015Model.paises">
+        <MappingFragment StoreEntitySet="paises">
+          <ScalarProperty Name="Idpais" ColumnName="Idpais" />
+          <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="usp_ClienteListado_EDM" FunctionName="Negocios2015Model.Store.usp_ClienteListado_EDM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Negocios2015Model.usp_ClienteListado_EDM_Result">
+          <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+          <ScalarProperty Name="NomCliente" ColumnName="NomCliente" />
+          <ScalarProperty Name="DirCliente" ColumnName="DirCliente" />
+          <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+          <ScalarProperty Name="fonoCliente" ColumnName="fonoCliente" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="usp_PaisListar_EDM" FunctionName="Negocios2015Model.Store.usp_PaisListar_EDM">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="Negocios2015Model.usp_PaisListar_EDM_Result">
+          <ScalarProperty Name="Idpais" ColumnName="Idpais" />
+          <ScalarProperty Name="NombrePais" ColumnName="NombrePais" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+  </EntityContainerMapping>
+</Mapping>

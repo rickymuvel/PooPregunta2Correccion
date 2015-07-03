@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Negocios2015Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="clientes">
+    <Key>
+      <PropertyRef Name="IdCliente" />
+    </Key>
+    <Property Name="IdCliente" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NomCliente" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="DirCliente" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="idpais" Type="String" MaxLength="3" FixedLength="true" Unicode="false" />
+    <Property Name="fonoCliente" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Activo" Type="Boolean" />
+    <NavigationProperty Name="paises" Relationship="Self.FK__clientes__idpais__145C0A3F" FromRole="clientes" ToRole="paises" />
+  </EntityType>
+  <EntityType Name="paises">
+    <Key>
+      <PropertyRef Name="Idpais" />
+    </Key>
+    <Property Name="Idpais" Type="String" MaxLength="3" FixedLength="true" Unicode="false" Nullable="false" />
+    <Property Name="NombrePais" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="clientes" Relationship="Self.FK__clientes__idpais__145C0A3F" FromRole="paises" ToRole="clientes" />
+  </EntityType>
+  <Association Name="FK__clientes__idpais__145C0A3F">
+    <End Role="paises" Type="Self.paises" Multiplicity="0..1" />
+    <End Role="clientes" Type="Self.clientes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="paises">
+        <PropertyRef Name="Idpais" />
+      </Principal>
+      <Dependent Role="clientes">
+        <PropertyRef Name="idpais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Negocios2015Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="clientes" EntityType="Self.clientes" />
+    <EntitySet Name="paises" EntityType="Self.paises" />
+    <AssociationSet Name="FK__clientes__idpais__145C0A3F" Association="Self.FK__clientes__idpais__145C0A3F">
+      <End Role="paises" EntitySet="paises" />
+      <End Role="clientes" EntitySet="clientes" />
+    </AssociationSet>
+    <FunctionImport Name="usp_ClienteListado_EDM" ReturnType="Collection(Negocios2015Model.usp_ClienteListado_EDM_Result)" />
+    <FunctionImport Name="usp_PaisListar_EDM" ReturnType="Collection(Negocios2015Model.usp_PaisListar_EDM_Result)" />
+  </EntityContainer>
+  <ComplexType Name="usp_ClienteListado_EDM_Result">
+    <Property Type="String" Name="IdCliente" Nullable="false" MaxLength="5" />
+    <Property Type="String" Name="NomCliente" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="DirCliente" Nullable="false" MaxLength="60" />
+    <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="40" />
+    <Property Type="String" Name="fonoCliente" Nullable="false" MaxLength="25" />
+  </ComplexType>
+  <ComplexType Name="usp_PaisListar_EDM_Result">
+    <Property Type="String" Name="Idpais" Nullable="false" MaxLength="3" />
+    <Property Type="String" Name="NombrePais" Nullable="false" MaxLength="40" />
+  </ComplexType>
+</Schema>
